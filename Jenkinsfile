@@ -15,13 +15,13 @@ pipeline {
 
     stage('Tag for GCR') {
       steps {
-        sh 'docker tag vattenlada-api gcr.io/vattenlada/vattenlada-api'
+        sh 'docker tag vattenlada-api mfarmer5102/vattenlada-api'
       }
     }
 
-    stage('Push to GCR') {
+    stage('Push to Docker Hub') {
       steps {
-        sh 'docker push gcr.io/vattenlada/vattenlada-api'
+        sh 'docker push mfarmer5102/vattenlada-api:latest'
       }
     }
 
