@@ -21,7 +21,12 @@ pipeline {
 
     stage('Push to Docker Hub') {
       steps {
-        sh 'docker push mfarmer5102/vattenlada-api:latest'
+        script {
+          docker.withRegistry('', 'Docker_Hub') {
+            def customImage = docker.build("mfarmer5102/vattenlada-api:latest")
+            customImage.push()
+          }
+        }
       }
     }
 
