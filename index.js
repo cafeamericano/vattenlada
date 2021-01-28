@@ -1,10 +1,10 @@
 //Requirements
-var express = require("express");
-var mongoose = require("mongoose");
-var app = express();
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
 
 //PORT
-var PORT = process.env.PORT || 8000;
+let PORT = process.env.PORT || 8000;
 
 //Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -12,29 +12,55 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //Import DB models
-var db = require("./models");
+const db = require("./models");
 
 //Connect to database
-var dbURL = process.env.MONGODB_URI || "mongodb://localhost/sample_geospatial";
+const dbURL = process.env.MONGODB_URI || "mongodb://localhost/sample_geospatial";
 mongoose.connect(dbURL, {
-  useNewUrlParser: true
+    useNewUrlParser: true
 });
 
 //Routes/////////////////////////////////////////////////////////
+
 app.get("/", function(req, res) {
-  res.send('Hello world.');
+  res.send('The server is listening for requests.');
 });
 
-app.get("/shipwrecks", function(req, res) {
+app.get("/api/shipwrecks/all", function(req, res) {
   db.Shipwreck.find({})
-    // .sort({ scrapeTime: -1 })
-    // .populate("comments")
     .then(function(queryResult) {
       res.json(queryResult);
     })
     .catch(function(err) {
       res.json(err);
     });
+});
+
+app.get("/api/shipwrecks", function(req, res) {
+
+    // Define sort, skip, and limit values
+    let sortBy = req.query.sortBy;
+    let sortOrder = req.query.sortOrder;
+    let skipValue = req.query.skipValue;
+    let limitValue = req.query.limitValue;
+
+    // Define filter object
+    let findObj = req.query;
+    delete findObj.sortValue;
+    delete findObj.skipValue;
+    delete findObj.limitValue;
+
+    db.Shipwreck.find(findObj)
+        .sort({ [sortBy]: sortOrder})
+        // .populate("comments")
+        .skip(Number(skipValue) || 0)
+        .limit(Number(limitValue) || 100)
+        .then(function(queryResult) {
+            res.json(queryResult);
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
 });
 
 // app.get("/api/articles", function(req, res) {

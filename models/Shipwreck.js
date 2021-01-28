@@ -3,10 +3,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ShipwreckSchema = new Schema({
-  headline: {
-    type: String,
-    required: true
-  }
+    depth: {
+        type: Number,
+        required: false
+    }
 });
 
 // Create model using defined schema
