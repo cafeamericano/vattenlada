@@ -35,7 +35,7 @@ pipeline {
     stage('Push to GCR') {
       steps {
         script {
-          docker.withRegistry('https://gcr.io', 'GoogleContainerRegistry') {
+          docker.withRegistry('https://gcr.io', 'Vattenlada') {
             def customImage = docker.build("mfarmer5102/vattenlada-api:latest")
             customImage.push()
           }
