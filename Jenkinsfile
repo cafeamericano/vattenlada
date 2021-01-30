@@ -27,7 +27,7 @@ pipeline {
       steps {
         sh 'docker tag vattenlada-api mfarmer5102/vattenlada-api'
       }
-    // }
+    }
 
     // PUSHING ////////////////////////////////////////////////////////////////////////////////////////////
 
