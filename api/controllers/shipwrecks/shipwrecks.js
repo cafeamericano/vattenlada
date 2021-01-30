@@ -1,10 +1,14 @@
-const data = require("../../data/shipwrecks/shipwrecks");
+const data = require("../../data/runQuery");
 
 module.exports = {
 
     get: function(req, res) {
-        data.get(req, res, (result) => {
-            res.json(result);
+        data.query(req, res, {model: 'Shipwreck', includeCount: true}, (err, result) => {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(result)
+            }
         })
     }
     
