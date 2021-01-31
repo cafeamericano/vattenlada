@@ -17,7 +17,7 @@ app.use(express.static("public"));
 // ROUTES ====================================================================
 
 //Import all routes
-require("./api/routes/_allroutes")(app);
+require("./api/routes/allRoutes")(app);
 
 //Home route
 app.get("/", function(req, res) {
