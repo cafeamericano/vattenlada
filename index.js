@@ -5,7 +5,7 @@ const cors = require("cors")
 const app = express();
 require("dotenv").config();
 require('./api/config/connection');
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 9010;
 
 // MIDDLEWARE ====================================================================
 
