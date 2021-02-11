@@ -40,6 +40,26 @@ module.exports = {
                 res.json(result)
             }
         })
-    }
+    },
+
+    aggregateDepthArithmetic: function(req, res) {
+        data.aggregateDepthArithmetic(req, res, {model: 'Shipwreck', includeCount: true}, (err, result) => {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(result)
+            }
+        })
+    },
+
+    aggregateLocationWreckTallies: function(req, res) {
+        data.aggregateLocationWreckTallies(req, res, {model: 'Shipwreck', includeCount: true}, (err, result) => {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(result)
+            }
+        })
+    },
     
 }
